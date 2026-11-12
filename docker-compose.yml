@@ -1,0 +1,22 @@
+services:
+  finance-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: personal-finance-dashboard:latest
+    container_name: finance-dashboard
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TZ: ${TZ:-America/Los_Angeles}
+      APP_TIMEZONE: ${APP_TIMEZONE:-America/Los_Angeles}
+      AI_API_BASE_URL: ${AI_API_BASE_URL:-}
+      AI_API_KEY: ${AI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash-high}
+      MCP_BEARER_TOKEN: ${MCP_BEARER_TOKEN:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "${BIND_HOST:-127.0.0.1}:${PORT:-8000}:8000"

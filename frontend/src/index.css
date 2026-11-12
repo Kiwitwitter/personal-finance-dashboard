@@ -1,0 +1,316 @@
+@import "tailwindcss";
+
+:root {
+  --surface-bg-light: #f8fafc;
+  --surface-bg-dark: #090d16;
+  --surface-card-light: #ffffff;
+  --surface-card-dark: #111827;
+  --surface-elevated-light: #f1f5f9;
+  --surface-elevated-dark: #1e293b;
+  --border-subtle-light: #e2e8f0;
+  --border-subtle-dark: #1f2937;
+  --text-primary-light: #0f172a;
+  --text-primary-dark: #f8fafc;
+  --text-muted-light: #64748b;
+  --text-muted-dark: #94a3b8;
+  --brand-accent-light: #2563eb;
+  --brand-accent-dark: #38bdf8;
+  --scroll-thumb-light: #94a3b8;
+  --scroll-thumb-dark: #475569;
+  --scroll-track-light: #f1f5f9;
+  --scroll-track-dark: #0f172a;
+
+  --surface-bg: var(--surface-bg-light);
+  --surface-card: var(--surface-card-light);
+  --surface-elevated: var(--surface-elevated-light);
+  --border-subtle: var(--border-subtle-light);
+  --text-primary: var(--text-primary-light);
+  --text-muted: var(--text-muted-light);
+  --brand-accent: var(--brand-accent-light);
+  --scrollbar-thumb: var(--scroll-thumb-light);
+  --scrollbar-track: var(--scroll-track-light);
+
+  @media (prefers-color-scheme: dark) {
+    --surface-bg: var(--surface-bg-dark);
+    --surface-card: var(--surface-card-dark);
+    --surface-elevated: var(--surface-elevated-dark);
+    --border-subtle: var(--border-subtle-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-muted: var(--text-muted-dark);
+    --brand-accent: var(--brand-accent-dark);
+    --scrollbar-thumb: var(--scroll-thumb-dark);
+    --scrollbar-track: var(--scroll-track-dark);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --surface-bg: light-dark(var(--surface-bg-light), var(--surface-bg-dark));
+    --surface-card: light-dark(var(--surface-card-light), var(--surface-card-dark));
+    --surface-elevated: light-dark(var(--surface-elevated-light), var(--surface-elevated-dark));
+    --border-subtle: light-dark(var(--border-subtle-light), var(--border-subtle-dark));
+    --text-primary: light-dark(var(--text-primary-light), var(--text-primary-dark));
+    --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+    --brand-accent: light-dark(var(--brand-accent-light), var(--brand-accent-dark));
+    --scrollbar-thumb: light-dark(var(--scroll-thumb-light), var(--scroll-thumb-dark));
+    --scrollbar-track: light-dark(var(--scroll-track-light), var(--scroll-track-dark));
+  }
+
+  color-scheme: light dark;
+  accent-color: var(--brand-accent);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-bg: var(--surface-bg-dark);
+  --surface-card: var(--surface-card-dark);
+  --surface-elevated: var(--surface-elevated-dark);
+  --border-subtle: var(--border-subtle-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-muted: var(--text-muted-dark);
+  --brand-accent: var(--brand-accent-dark);
+  --scrollbar-thumb: var(--scroll-thumb-dark);
+  --scrollbar-track: var(--scroll-track-dark);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --surface-bg: var(--surface-bg-light);
+  --surface-card: var(--surface-card-light);
+  --surface-elevated: var(--surface-elevated-light);
+  --border-subtle: var(--border-subtle-light);
+  --text-primary: var(--text-primary-light);
+  --text-muted: var(--text-muted-light);
+  --brand-accent: var(--brand-accent-light);
+  --scrollbar-thumb: var(--scroll-thumb-light);
+  --scrollbar-track: var(--scroll-track-light);
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--surface-bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "PingFang SC", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.surface-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+}
+
+.surface-elevated {
+  background-color: var(--surface-elevated);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* Privacy Blur Mode (Cmd/Ctrl + H) */
+.privacy-blur .money-val {
+  filter: blur(7px);
+  user-select: none;
+  transition: filter 150ms ease;
+}
+
+.privacy-blur .money-val:hover {
+  filter: blur(0);
+}
+
+/* Native <dialog> modal scroll containment & backdrop */
+dialog:modal {
+  overscroll-behavior: contain;
+  margin: auto;
+  background-color: var(--surface-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  padding: 0;
+  max-width: min(36rem, calc(100vw - 2rem));
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(2, 6, 23, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive Data Table with @container queries & sticky headers */
+.table-wrapper {
+  overflow: auto;
+  max-inline-size: 100%;
+  max-block-size: min(72vh, 780px);
+  container-type: inline-size;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-card);
+}
+
+.fin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+}
+
+.fin-table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background-color: var(--surface-elevated);
+}
+
+.fin-table th,
+.fin-table td {
+  padding: 0.75rem 1rem;
+  border-block-end: 1px solid var(--border-subtle);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.fin-table tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background-color: var(--surface-card);
+  font-weight: 600;
+}
+
+.fin-table tbody tr:hover td,
+.fin-table tbody tr:hover th {
+  background-color: var(--surface-elevated);
+}
+
+@container (width < 640px) {
+  .fin-table,
+  .fin-table thead,
+  .fin-table tbody,
+  .fin-table tr,
+  .fin-table th,
+  .fin-table td {
+    display: block;
+    white-space: normal;
+  }
+
+  .fin-table thead {
+    display: none;
+  }
+
+  .fin-table tbody tr {
+    margin: 0.75rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .fin-table tbody th {
+    position: sticky;
+    inset-block-start: 0;
+    background-color: var(--surface-elevated);
+  }
+
+  .fin-table td:nth-child(2)::before {
+    content: var(--label-2, "") ": ";
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .fin-table td:nth-child(3)::before {
+    content: var(--label-3, "") ": ";
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .fin-table td:nth-child(4)::before {
+    content: var(--label-4, "") ": ";
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .fin-table td:nth-child(5)::before {
+    content: var(--label-5, "") ": ";
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .fin-table td:nth-child(6)::before {
+    content: var(--label-6, "") ": ";
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .fin-table td:nth-child(7)::before {
+    content: var(--label-7, "") ": ";
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+}
+
+/* Credit Card Component (<article class="cc-card">) with @container queries */
+.cc-card {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.9rem;
+  padding: 1.15rem;
+  border-radius: 1rem;
+}
+
+.cc-card > img.cc-art-img,
+.cc-card > svg.cc-art-svg {
+  width: 100%;
+  aspect-ratio: 1.586 / 1;
+  border-radius: 0.85rem;
+  display: block;
+  box-shadow:
+    0 14px 28px -10px rgba(2, 6, 23, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.cc-card > img.cc-art-img {
+  object-fit: cover;
+}
+
+@container (width >= 520px) {
+  .cc-card:has(> svg.cc-art-svg, > img.cc-art-img) {
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    column-gap: 1.25rem;
+    align-items: start;
+  }
+
+  .cc-card:has(> svg.cc-art-svg, > img.cc-art-img) > svg.cc-art-svg,
+  .cc-card:has(> svg.cc-art-svg, > img.cc-art-img) > img.cc-art-img {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: center;
+  }
+
+  .cc-card:has(> svg.cc-art-svg, > img.cc-art-img) > header,
+  .cc-card:has(> svg.cc-art-svg, > img.cc-art-img) > div,
+  .cc-card:has(> svg.cc-art-svg, > img.cc-art-img) > footer {
+    grid-column: 2;
+  }
+}
